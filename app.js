@@ -6,6 +6,7 @@ var logger = require('morgan');
 const basiAuthMiddleware = require('./lib/basicAuthMiddleware')
 const TagsController = require('./controllers/TagsController')
 const ProductsController = require('./controllers/ProductsController')
+const LoginController = require('./controllers/LoginController')
 
 // DB Connection
 require('./lib/connectMongoose')
@@ -35,10 +36,17 @@ app.use('/api/products', basiAuthMiddleware, require('./routes/api/products'))
 // WEB routes
 const productsController = new ProductsController()
 const tagsController = new TagsController()
+const loginController = new LoginController()
 
+// Public list of all products
 app.get('/', productsController.index)
+// Private list of user products
 app.get('/products', productsController.index)
+// Public list of tags
 app.get('/tags', tagsController.index)
+// Login page
+app.get('/login', loginController.index)
+app.post('/login', loginController.post)
 
 // Catch 404 and forward to error handler
 app.use(function(req, res, next) {
