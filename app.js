@@ -4,6 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const basiAuthMiddleware = require('./lib/basicAuthMiddleware')
+const TagsController = require('./controllers/TagsController')
+const ProductsController = require('./controllers/ProductsController')
 
 // DB Connection
 require('./lib/connectMongoose')
@@ -31,7 +33,12 @@ app.use('/api/products', basiAuthMiddleware, require('./routes/api/products'))
 
 
 // WEB routes
-app.use('/', require('./routes/index'));
+const productsController = new ProductsController()
+const tagsController = new TagsController()
+
+app.get('/', productsController.index)
+app.get('/products', productsController.index)
+app.get('/tags', tagsController.index)
 
 // Catch 404 and forward to error handler
 app.use(function(req, res, next) {
