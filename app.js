@@ -3,6 +3,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const session = require('express-session')
+const sessionAuthMiddleware = require('./lib/sessionAuthMiddleware')
 const basiAuthMiddleware = require('./lib/basicAuthMiddleware')
 const TagsController = require('./controllers/TagsController')
 const ProductsController = require('./controllers/ProductsController')
@@ -38,12 +40,20 @@ const productsController = new ProductsController()
 const tagsController = new TagsController()
 const loginController = new LoginController()
 
+// Init session
+app.use(session({
+  name: 'nodepop-session',
+  secret: 'aBAxXS€^417$',
+  saveUninitialized: true,
+  resave: false,
+  cookie: { maxAge: 1000 * 60 * 60 * 24 * 2 }  //2 días
+}))
 // Public list of all products
 app.get('/', productsController.index)
 // Private list of user products
-app.get('/products', productsController.index)
+app.get('/products', sessionAuthMiddleware, productsController.index)
 // Public list of tags
-app.get('/tags', tagsController.index)
+app.get('/tags', sessionAuthMiddleware, tagsController.index)
 // Login page
 app.get('/login', loginController.index)
 app.post('/login', loginController.post)

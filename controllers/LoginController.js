@@ -19,6 +19,7 @@ class LoginController {
                 res.render('login')
                 return
             }
+            req.session.userLogged = user._id
             res.redirect('/products')
         } catch (error) {
             next(error)
