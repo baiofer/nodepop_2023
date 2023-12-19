@@ -1,6 +1,6 @@
 const connection = require('../lib/connectMongoose')
 const readline = require('node:readline')
-const Product = require('../models/Product')
+const { Product, User } = require('../models')
 const initData = require('./initDB-data.json')
 
 main().catch( err => console.log('Hubo un error', err))
@@ -10,9 +10,11 @@ async function main() {
     await new Promise( resolve => connection.once('open', resolve))
     
     // Confirmation message
-    const deleteQuestion = await question('¿Estas seguro de que quieres borrar la base de datos y cargar datos iniciales?  ')
+    const deleteQuestion = await question('¿Estas seguro de que quieres borrar la base de datos y cargar datos iniciales? (si/no)  ')
     if (!deleteQuestion) { process.exit()}
 
+    // Init users
+    await initUsers()
     // Init products
     await initProducts()
     connection.close()
@@ -26,6 +28,19 @@ async function initProducts() {
     // Insert initial products
     const inserted = await Product.insertMany(initData.products)
     console.log(`Creados ${inserted.length} productos.`)
+}
+
+async function initUsers() {
+    // Delete all users
+    const deleted = await User.deleteMany()
+    console.log(`Eliminados ${deleted.deletedCount} usuarios.`)
+
+    // Insert initial users
+    const inserted = await User.insertMany([
+        { email: "user@example.com", password: "1234" },
+        { email: "admin@example.com", password: "1234"}
+    ])
+    console.log(`Creados ${inserted.length} usuarios.`)
 }
 
 function question(text) {
