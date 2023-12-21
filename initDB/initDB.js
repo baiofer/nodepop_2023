@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const connection = require('../lib/connectMongoose')
 const readline = require('node:readline')
 const { Product, User } = require('../models')

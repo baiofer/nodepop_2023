@@ -48,7 +48,7 @@ app.use(session({
   saveUninitialized: true,
   resave: false,
   cookie: { maxAge: 1000 * 60 * 60 * 24 * 2 },  //2 días
-  store: MongoStore.create({ mongoUrl: 'mongodb://127.0.0.1/nodepop'})
+  store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI})
 }))
 // Put the session object disponible in views.
 app.use((req, res, next) => {
