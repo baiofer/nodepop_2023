@@ -3,7 +3,6 @@ require('dotenv').config()
 const connection = require('../lib/connectMongoose')
 const readline = require('node:readline')
 const { Product, User } = require('../models')
-const initData = require('./initDB-data.json')
 
 main().catch( err => console.log('Hubo un error', err))
 
@@ -27,8 +26,22 @@ async function initProducts() {
     const deleted = await Product.deleteMany()
     console.log(`Eliminados ${deleted.deletedCount} productos.`)
 
+    const [ adminUser, userUser ] = await Promise.all([
+  	    Usuario.findOne({ email: 'admin@example.com' }),
+  	    Usuario.findOne({ email: 'usuario1@example.com' })
+    ])
+
     // Insert initial products
-    const inserted = await Product.insertMany(initData.products)
+    const inserted = await Product.insertMany([
+        { "name": "Máquina de escribir", "sale": true, "price": 125, "image": "maquina_escribir.jpeg", "tags": ["work"], owner: adminUser._id },
+        { "name": "Máquina de fotos instantánea", "sale": true, "price": 95, "image": "maquina_fotos.jpeg", "tags": ["work"], owner: userUser._id },
+        { "name": "Medidor de tensión portátil", "sale": true, "price": 150, "image": "medidor_tensión.jpeg", "tags": ["lifestyle"], owner: adminUser._id },
+        { "name": "Motocicleta", "sale": true, "price": 3500, "image": "moto.jpeg", "tags": ["motor"], owner: adminUser._id },
+        { "name": "Reloj de cocina", "sale": true, "price": 30, "image": "reloj_de_pared.jpeg", "tags": ["lifestyle"], owner: userUser._id },
+        { "name": "Silla", "sale": true, "price": 275, "image": "silla.jpeg", "tags": ["lifestyle"], owner: userUser._id },
+        { "name": "iPhone 12", "sale": false, "price": 550, "tags": ["mobile"], owner: userUser._id },
+        { "name": "iWatch", "sale": false, "price": 225, "tags": ["mobile"], owner: adminUser._id }
+    ])
     console.log(`Creados ${inserted.length} productos.`)
 }
 

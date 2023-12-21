@@ -116,6 +116,16 @@ $ npm install
 
 para instalar las dependencias.
 
+Luego adaptamos nuestro fichero de variables de entorno a nuestro entorno.
+
+Para ello copiamos rl fichero .env.example rn un fichero .env
+
+```sh
+$ cp .env.example .env
+```
+
+Y le damos a este fichero nuestra configuración.
+
 A continuación, se crea la base de datos de arranque, teniendo previamente arrancado MongoDB. Para ello, dentro de la carpeta nodepop ejecutamos
 
 ```sh
