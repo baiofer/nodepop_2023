@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const session = require('express-session')
+const MongoStore = require('connect-mongo')
 const sessionAuthMiddleware = require('./lib/sessionAuthMiddleware')
 const basiAuthMiddleware = require('./lib/basicAuthMiddleware')
 const TagsController = require('./controllers/TagsController')
@@ -46,7 +47,8 @@ app.use(session({
   secret: 'aBAxXS€^417$',
   saveUninitialized: true,
   resave: false,
-  cookie: { maxAge: 1000 * 60 * 60 * 24 * 2 }  //2 días
+  cookie: { maxAge: 1000 * 60 * 60 * 24 * 2 },  //2 días
+  store: MongoStore.create({ mongoUrl: 'mongodb://127.0.0.1/nodepop'})
 }))
 // Put the session object disponible in views.
 app.use((req, res, next) => {
