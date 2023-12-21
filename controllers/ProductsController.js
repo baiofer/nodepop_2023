@@ -1,23 +1,44 @@
 const queryFilter = require('../lib/queryFilter');
+const createError = require('http-errors')
+const { User } = require('../models')
 
 class ProductsController {
 
     async index(req, res, next) {
         try {
-            const { products, error } = await queryFilter(req)
-            console.log('products: ', products)
-            if (Object.keys(error).length !== 0) {
-              next(error)
+            // If there isn't a session
+            console.log(req.session)
+            if (!req.session) {
+                // Get all products in DB
+                const { products, error } = await queryFilter(req)
+                if (Object.keys(error).length !== 0) {
+                    next(error)
+                    return
+                }
+                res.locals.products = products
+                res.render('index')
+            } else {
+                // If there is a session, get only products from user
+                const userId = req.session.userLogged
+                console.log(userId)
+                const user = await User.findById(userId)
+                if (!user) {
+                    next(createError(500, 'User not found'))
+                    return
+                }
+                const { products, error } = await queryFilter(req)
+                if (Object.keys(error).length !== 0) {
+                    next(error)
+                    return
+                }
+                res.locals.products = products
+                res.render('products', { email: user.email })
             }
-            
-            res.locals.products = products
-            res.render('index')
-        
         } catch (err) {
             next(err)
         }
     }
-    
+
 }
 
 module.exports = ProductsController

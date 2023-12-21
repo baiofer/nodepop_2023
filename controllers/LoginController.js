@@ -13,7 +13,7 @@ class LoginController {
             const { email, password } = req.body
             // Look for user in DB
             const user = await User.findOne({ email })
-            if (!user || user.password !== password ) {
+            if (!user || !(await user.comparePassword(password)) ) {
                 res.locals.error = 'Invalid credentials'
                 res.locals.email = email
                 res.render('login')
