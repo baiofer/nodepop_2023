@@ -27,8 +27,8 @@ async function initProducts() {
     console.log(`Eliminados ${deleted.deletedCount} productos.`)
 
     const [ adminUser, userUser ] = await Promise.all([
-  	    Usuario.findOne({ email: 'admin@example.com' }),
-  	    Usuario.findOne({ email: 'usuario1@example.com' })
+  	    User.findOne({ email: 'admin@example.com' }),
+  	    User.findOne({ email: 'user@example.com' })
     ])
 
     // Insert initial products

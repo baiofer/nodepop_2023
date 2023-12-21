@@ -6,7 +6,8 @@ const productSchema = mongoose.Schema({
     sale: { type: Boolean, index: true },
     price: { type: Number, index: true },
     image: { type: String },
-    tags: { type: [String], index: true}
+    tags: { type: [String], index: true},
+    owner: { ref: 'User', type: mongoose.Schema.Types.ObjectId }
 }, {
     collection: 'products'
 })
