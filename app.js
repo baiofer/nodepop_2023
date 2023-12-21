@@ -35,7 +35,7 @@ app.use('/api/tags',     basiAuthMiddleware, require('./routes/api/tags'))
 app.use('/api/products', basiAuthMiddleware, require('./routes/api/products'))
 
 
-// WEB routes
+// WEBsite routes
 const productsController = new ProductsController()
 const tagsController = new TagsController()
 const loginController = new LoginController()
@@ -48,15 +48,21 @@ app.use(session({
   resave: false,
   cookie: { maxAge: 1000 * 60 * 60 * 24 * 2 }  //2 días
 }))
+// Put the session object disponible in views.
+app.use((req, res, next) => {
+  res.locals.session = req.session
+  next()
+})
 // Public list of all products
 app.get('/', productsController.index)
 // Private list of user products
 app.get('/products', sessionAuthMiddleware, productsController.index)
-// Public list of tags
+// Private list of tags
 app.get('/tags', sessionAuthMiddleware, tagsController.index)
 // Login page
 app.get('/login', loginController.index)
 app.post('/login', loginController.post)
+app.get('/logout', loginController.logout)
 
 // Catch 404 and forward to error handler
 app.use(function(req, res, next) {

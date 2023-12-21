@@ -5,10 +5,10 @@ const { User } = require('../models')
 class ProductsController {
 
     async index(req, res, next) {
+        console.log('Products: ', req.session)
         try {
             // If there isn't a session
-            console.log(req.session)
-            if (!req.session) {
+            if (!req.session.userLogged) {
                 // Get all products in DB
                 const { products, error } = await queryFilter(req)
                 if (Object.keys(error).length !== 0) {

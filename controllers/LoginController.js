@@ -25,6 +25,17 @@ class LoginController {
             next(error)
         }
     }
+
+    logout(req, res, next) {
+        req.session.regenerate( err => {
+            console.log('regenerate: ', err)
+            if (err) {
+                next(err)
+                return
+            }
+            res.redirect('/')
+        })
+    }
 }
 
 module.exports = LoginController
