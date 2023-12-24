@@ -3,7 +3,7 @@ class ChangeLocaleController {
     index(req, res, next) {
         const locale = req.params.locale
         // Poner una cookie con el nuevo idioma
-        res.cookie('nodeapp-locale', locale, {
+        res.cookie('nodepop-locale', locale, {
             maxAge: 1000 * 60 * 60 * 24 * 30  //30 días
         })
 
