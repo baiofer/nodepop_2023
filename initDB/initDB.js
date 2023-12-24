@@ -4,14 +4,14 @@ const connection = require('../lib/connectMongoose')
 const readline = require('node:readline')
 const { Product, User } = require('../models')
 
-main().catch( err => console.log(__('Hubo un error'), err))
+main().catch( err => console.log('Hubo un error', err))
 
 async function main() {
     // Wait until DB connection
     await new Promise( resolve => connection.once('open', resolve))
     
     // Confirmation message
-    const deleteQuestion = await question(__('¿Estas seguro de que quieres borrar la base de datos y cargar datos iniciales? (si/no)  '))
+    const deleteQuestion = await question('¿Estas seguro de que quieres borrar la base de datos y cargar datos iniciales? (si/no)  ')
     if (!deleteQuestion) { process.exit()}
 
     // Init users
@@ -34,28 +34,28 @@ async function initProducts() {
     // Insert initial products
     const inserted = await Product.insertMany([
         { "name": "Máquina de escribir", "sale": true, "price": 125, "image": "maquina_escribir.jpeg", "tags": ["work"], owner: adminUser._id },
-        { "name": "Máquina de fotos instantánea", "sale": true, "price": 95, "image": "maquina_fotos.jpeg", "tags": ["work"], owner: userUser._id },
-        { "name": "Medidor de tensión portátil", "sale": true, "price": 150, "image": "medidor_tensión.jpeg", "tags": ["lifestyle"], owner: adminUser._id },
-        { "name": "Motocicleta", "sale": true, "price": 3500, "image": "moto.jpeg", "tags": ["motor"], owner: adminUser._id },
-        { "name": "Reloj de cocina", "sale": true, "price": 30, "image": "reloj_de_pared.jpeg", "tags": ["lifestyle"], owner: userUser._id },
-        { "name": "Silla", "sale": true, "price": 275, "image": "silla.jpeg", "tags": ["lifestyle"], owner: userUser._id },
-        { "name": "iPhone 12", "sale": false, "price": 550, "tags": ["mobile"], owner: userUser._id },
-        { "name": "iWatch", "sale": false, "price": 225, "tags": ["mobile"], owner: adminUser._id }
+        { "name": "Máquina de fotos instantánea", "sale": true, "price": 95, "image": "maquina_fotos.jpg", "tags": ["work"], owner: userUser._id },
+        { "name": "Medidor de tensión portátil", "sale": true, "price": 150, "image": "medidor_tension.jpg", "tags": ["lifestyle"], owner: adminUser._id },
+        { "name": "Motocicleta", "sale": true, "price": 3500, "image": "moto.jpg", "tags": ["motor"], owner: adminUser._id },
+        { "name": "Reloj de cocina", "sale": true, "price": 30, "image": "reloj_de_pared.jpg", "tags": ["lifestyle"], owner: userUser._id },
+        { "name": "Silla", "sale": true, "price": 275, "image": "silla.jpg", "tags": ["lifestyle"], owner: userUser._id },
+        { "name": "iPhone 12", "sale": false, "price": 550, "image": "noImage.jpg", "tags": ["mobile"], owner: userUser._id },
+        { "name": "iWatch", "sale": false, "price": 225, "image": "noImage.jpg", "tags": ["mobile"], owner: adminUser._id }
     ])
-    console.log(`__('Creados') ${inserted.length} __('productos').`)
+    console.log(`Creados ${inserted.length} productos.`)
 }
 
 async function initUsers() {
     // Delete all users
     const deleted = await User.deleteMany()
-    console.log(`__('Eliminados') ${deleted.deletedCount} __('usuarios').`)
+    console.log(`Eliminados ${deleted.deletedCount} usuarios.`)
 
     // Insert initial users
     const inserted = await User.insertMany([
         { email: "user@example.com", password: await User.hashPassword("1234") },
         { email: "admin@example.com", password: await User.hashPassword("1234") }
     ])
-    console.log(`__('Creados') ${inserted.length} __('usuarios').`)
+    console.log(`Creados ${inserted.length} usuarios.`)
 }
 
 function question(text) {

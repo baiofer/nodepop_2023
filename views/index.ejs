@@ -4,8 +4,10 @@
     <div class="container my-section">
       <h1><%= __('LISTADO SELECCIONADO') %></h1>
       <% products.forEach( function(product) { %>
-        <div class="card" style="width: 18rem;">
-          <img src="public/images/moto.jpeg" class="card-img-top" alt="product">
+        <div class="card" style="width: 400px;">
+          <div class="my-image">
+            <img src="<%= `/images/${product.image}` %>" alt="product">
+          </div>
           <div class="card-body">
             <% if (product.name) { %>
               <h5 class="card-title"><%= product.name %></h5>
