@@ -4,14 +4,14 @@ const connection = require('../lib/connectMongoose')
 const readline = require('node:readline')
 const { Product, User } = require('../models')
 
-main().catch( err => console.log('Hubo un error', err))
+main().catch( err => console.log(__('Hubo un error'), err))
 
 async function main() {
     // Wait until DB connection
     await new Promise( resolve => connection.once('open', resolve))
     
     // Confirmation message
-    const deleteQuestion = await question('¿Estas seguro de que quieres borrar la base de datos y cargar datos iniciales? (si/no)  ')
+    const deleteQuestion = await question(__('¿Estas seguro de que quieres borrar la base de datos y cargar datos iniciales? (si/no)  '))
     if (!deleteQuestion) { process.exit()}
 
     // Init users
@@ -42,20 +42,20 @@ async function initProducts() {
         { "name": "iPhone 12", "sale": false, "price": 550, "tags": ["mobile"], owner: userUser._id },
         { "name": "iWatch", "sale": false, "price": 225, "tags": ["mobile"], owner: adminUser._id }
     ])
-    console.log(`Creados ${inserted.length} productos.`)
+    console.log(`__('Creados') ${inserted.length} __('productos').`)
 }
 
 async function initUsers() {
     // Delete all users
     const deleted = await User.deleteMany()
-    console.log(`Eliminados ${deleted.deletedCount} usuarios.`)
+    console.log(`__('Eliminados') ${deleted.deletedCount} __('usuarios').`)
 
     // Insert initial users
     const inserted = await User.insertMany([
         { email: "user@example.com", password: await User.hashPassword("1234") },
         { email: "admin@example.com", password: await User.hashPassword("1234") }
     ])
-    console.log(`Creados ${inserted.length} usuarios.`)
+    console.log(`__('Creados') ${inserted.length} __('usuarios').`)
 }
 
 function question(text) {

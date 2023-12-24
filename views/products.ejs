@@ -2,7 +2,7 @@
 <!-- Section-->
   <section class="page-section mb-0" > 
     <div class="container my-section">
-      <h1>LISTADO SELECCIONADO</h1>
+      <h1><%= __('LISTADO SELECCIONADO') %></h1>
       <h3>User: <%= email %></h3>
       <% products.forEach( function(product) { %>
         <p><b>=================================</b></p>
@@ -10,20 +10,20 @@
           <h3><%= product.name %></h3>
         <% } %>
         <% if (product.price) { %>
-          <p>Precio: <%= product.price %> €</p>
+          <p><%= __('Precio') %>: <%= product.price %> €</p>
         <% } %>
         <% if(product.sale !== undefined) { %>
           <% if(product.sale) {%>
-            <p>Tipo: Venta</p>
+            <p><%= __('Tipo: Venta') %></p>
           <% } else { %>
-            <p> Tipo Búsqueda</p>
+            <p><%= __('Tipo: Compra') %></p>
           <% } %>
         <% } %>
         <% if (product.tags !== undefined) { %>
-          <p>Tag: <%= product.tags[0] %></p>
+          <p><%= __('Tag') %>: <%= product.tags[0] %></p>
         <% } %>
         <% if (product.image) { %>
-          <p>Foto: <%= product.image %></p>
+          <p><%= __('Image') %>: <%= product.image %></p>
         <% } %>
         <% if (product._id) { %>
           <p>ID: <%= product._id %></p>

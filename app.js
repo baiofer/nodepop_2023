@@ -9,7 +9,9 @@ const sessionAuthMiddleware = require('./lib/sessionAuthMiddleware')
 const basiAuthMiddleware = require('./lib/basicAuthMiddleware')
 const TagsController = require('./controllers/TagsController')
 const ProductsController = require('./controllers/ProductsController')
-const LoginController = require('./controllers/LoginController')
+const LoginController = require('./controllers/LoginController');
+const ChangeLocaleController = require('./controllers/ChangeLocaleController')
+const i18n = require('./lib/i18nConfigure');
 
 // DB Connection
 require('./lib/connectMongoose')
@@ -40,7 +42,10 @@ app.use('/api/products', basiAuthMiddleware, require('./routes/api/products'))
 const productsController = new ProductsController()
 const tagsController = new TagsController()
 const loginController = new LoginController()
+const changeLocaleController = new ChangeLocaleController()
 
+// Init internationalization
+app.use(i18n.init)
 // Init session
 app.use(session({
   name: 'nodepop-session',
@@ -55,6 +60,8 @@ app.use((req, res, next) => {
   res.locals.session = req.session
   next()
 })
+// Redirection of language change
+app.get('/change-locale/:locale', changeLocaleController.index)
 // Public list of all products
 app.get('/', productsController.index)
 // Private list of user products

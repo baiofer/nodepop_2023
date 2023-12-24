@@ -2,17 +2,17 @@
 <!-- Section-->
   <section class="page-section mb-0" > 
     <div class="container my-section">
-        <h1>Acceso</h1>
+        <h1><%= ('Acceso') %></h1>
         <form method='POST'>
             <div class="form-floating mb-3">
                 <input type="email" name='email' value="<%= email %>" class="form-control" id="floatingInput" placeholder="name@example.com">
-                <label for="floatingInput">Email address</label>
+                <label for="floatingInput"><%= ('Email address') %></label>
             </div>
             <div class="form-floating">
                 <input type="password" name='password' class="form-control" id="floatingPassword" placeholder="Password">
-                <label for="floatingPassword">Password</label>
+                <label for="floatingPassword"><%= ('Password') %></label>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary"><%= ('Submit') %></button>
             <p><%= error %></p>
         </form>
     </div>

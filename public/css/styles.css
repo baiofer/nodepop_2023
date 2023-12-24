@@ -11065,3 +11065,12 @@ html {
 .bg-my-primary:hover {
   background-color: #f5b392;
 }
+
+.my-img {
+  width: 100px;
+  height: 100px;
+}
+
+.my-locale {
+  color: white;
+}

@@ -22,7 +22,7 @@ class ProductsController {
                 const userId = req.session.userLogged
                 const user = await User.findById(userId)
                 if (!user) {
-                    next(createError(500, 'User not found'))
+                    next(createError(500, __('User not found')))
                     return
                 }
                 const productsFiltered = products.filter( product => {
@@ -35,7 +35,6 @@ class ProductsController {
             next(err)
         }
     }
-
 }
 
 module.exports = ProductsController

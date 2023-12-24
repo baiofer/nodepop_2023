@@ -21,24 +21,27 @@
         <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
             <div class="container my-nav">
                 <a class="navbar-brand" href="/">Nodepop</a>
+                <% getLocales().forEach( locale => { %>
+                    <a class="my-locale" href="/change-locale/<%= locale %>"><%= locale %></a>&nbsp
+                <% }) %>
                 <button class="navbar-toggler text-uppercase font-weight-bold bg-my-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    Menu
+                    <%= __('Menu') %>
                     <i class="fas fa-bars"></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto">
                         <% if (session.userLogged) { %>
-                            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/tags">Tags</a></li>
-                            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/">Products</a></li>
+                            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/tags"><%= __('Tags') %></a></li>
+                            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/"><%= __('Products') %></a></li>
                         <% } %>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#contact">Contact</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#contact"><%= __('Contact') %></a></li>
                         <li><span class="my-li">...............</span></li>
                     </ul>
                 </div>
                 <% if (!session.userLogged) { %>
-                    <a href="/login" type="button" class="btn btn-primary btn-lg">Login</a>
+                    <a href="/login" type="button" class="btn btn-primary btn-lg"><%= __('Login') %></a>
                 <% } else { %>
-                    <a href="/logout" type="button" class="btn btn-primary btn-lg">Logout</a>
+                    <a href="/logout" type="button" class="btn btn-primary btn-lg"><%= __('Logout') %></a>
                 <% } %>
             </div>
         </nav>

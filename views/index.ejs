@@ -2,32 +2,33 @@
 <!-- Section-->
   <section class="page-section mb-0" > 
     <div class="container my-section">
-      <h1>LISTADO SELECCIONADO</h1>
+      <h1><%= __('LISTADO SELECCIONADO') %></h1>
       <% products.forEach( function(product) { %>
-        <p><b>=================================</b></p>
-        <% if (product.name) { %>
-          <h3><%= product.name %></h3>
-        <% } %>
-        <% if (product.price) { %>
-          <p>Precio: <%= product.price %> €</p>
-        <% } %>
-        <% if(product.sale !== undefined) { %>
-          <% if(product.sale) {%>
-            <p>Tipo: Venta</p>
-          <% } else { %>
-            <p> Tipo Búsqueda</p>
-          <% } %>
-        <% } %>
-        <% if (product.tags !== undefined) { %>
-          <p>Tag: <%= product.tags[0] %></p>
-        <% } %>
-        <% if (product.image) { %>
-          <p>Foto: <%= product.image %></p>
-        <% } %>
-        <% if (product._id) { %>
-          <p>ID: <%= product._id %></p>
-        <% } %>
-      <% }) %>
+        <div class="card" style="width: 18rem;">
+          <img src="public/images/moto.jpeg" class="card-img-top" alt="product">
+          <div class="card-body">
+            <% if (product.name) { %>
+              <h5 class="card-title"><%= product.name %></h5>
+            <% } %>
+            <% if (product.price) { %>
+              <h5 class="card-title"><%= product.price %></h5>
+            <% } %>
+            <% if(product.sale !== undefined) { %>
+              <% if(product.sale) {%>
+                <p class="card-text"><%= __('Tipo: Venta') %></p>
+              <% } else { %>
+                <p class="card-text"><%= __('Tipo: Compra') %></p>
+              <% } %>
+            <% } %>
+            <% if (product.tags !== undefined) { %>
+              <p class="card-text"><%= __('Tag') %>: <%= product.tags[0] %></p>
+            <% } %>
+            <a href="#" class="btn btn-primary"><%= __('Comprar') %></a>
+            <a href="#" class="btn btn-primary"><%= __('Borrar') %></a>
+          
+          </div>
+        </div>
+        <% }) %>
     </div>
   </section>
 <%- include('footer') %>
