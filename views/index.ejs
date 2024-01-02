@@ -3,8 +3,9 @@
   <section class="page-section mb-0" > 
     <div class="container my-section">
       <h1><%= __('LISTADO SELECCIONADO') %></h1>
+      <div class="my-grid">
       <% products.forEach( function(product) { %>
-        <div class="card" style="width: 400px;">
+        <div class="card" style="width: 300px;">
           <div class="my-image">
             <img src="<%= `/images/${product.image}` %>" alt="product">
           </div>
@@ -25,12 +26,11 @@
             <% if (product.tags !== undefined) { %>
               <p class="card-text"><%= __('Tag') %>: <%= product.tags[0] %></p>
             <% } %>
-            <a href="#" class="btn btn-primary"><%= __('Comprar') %></a>
-            <a href="#" class="btn btn-primary"><%= __('Borrar') %></a>
-          
+            <a href="#" class="btn btn-primary"><%= __('Comprar') %></a>          
           </div>
         </div>
-        <% }) %>
+      <% }) %>
+      </div>
     </div>
   </section>
 <%- include('footer') %>
