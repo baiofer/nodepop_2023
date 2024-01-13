@@ -11,6 +11,7 @@ const TagsController = require('./controllers/TagsController')
 const ProductsController = require('./controllers/ProductsController')
 const LoginController = require('./controllers/LoginController');
 const ChangeLocaleController = require('./controllers/ChangeLocaleController')
+const ProductController = require('./controllers/ProductController')
 const i18n = require('./lib/i18nConfigure');
 
 // DB Connection
@@ -43,6 +44,7 @@ const productsController = new ProductsController()
 const tagsController = new TagsController()
 const loginController = new LoginController()
 const changeLocaleController = new ChangeLocaleController()
+const productController = new ProductController()
 
 // Init internationalization
 app.use(i18n.init)
@@ -72,6 +74,9 @@ app.get('/tags', sessionAuthMiddleware, tagsController.index)
 app.get('/login', loginController.index)
 app.post('/login', loginController.post)
 app.get('/logout', loginController.logout)
+// New product
+app.get('/newProduct', productController.new)
+app.post('/newProduct', productController.postNewProduct)
 
 // Catch 404 and forward to error handler
 app.use(function(req, res, next) {

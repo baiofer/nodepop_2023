@@ -11049,7 +11049,7 @@ html {
 .my-section {
   width: 90%;
   margin: 0 auto;
-  margin-top: 30px;
+  margin-top: 50px;
 }
 
 .my-li {
@@ -11083,12 +11083,12 @@ html {
 .my-add {
   width: 30px;
   height: 30px;
-  
-}
-.my-add img {
-  width: 100%;
-  height: 100%;
   background-color: white;
+}
+
+.my-user-div {
+  display: flex;
+  justify-content: space-between;
 }
 
 .my-locale {
@@ -11113,6 +11113,36 @@ html {
   grid-template-columns: repeat(2, 1fr);
   padding: 0;
   gap: 15px;
+}
+
+.my-radio {
+  margin-top: 30px;
+}
+
+.my-radio-label {
+  margin-left: 10px;
+}
+
+.my-radio-input {
+  margin-left: 25px;
+}
+
+.my-select {
+  margin-top: 70px;
+  margin-left: 25px;
+  padding: 10px;
+}
+
+.my-option {
+  padding: 5px;
+}
+
+.my-input-file {
+  margin-top: -40px;
+}
+
+.my-div-file {
+  margin-top: 40px;
 }
 
 @media (width >= 750px) {

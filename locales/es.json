@@ -12,7 +12,15 @@
 	"Borrar": "Borrar",
 	"Tipo: Compra": "Tipo: Compra",
 	"Precio": "Precio",
-	"Image": "Image",
+	"Image": "Foto",
 	"LISTADO DE TAGS": "LISTADO DE CATEGORIAS",
-	"User": "Usuario"
+	"User": "Usuario",
+	"Product name": "Nombre del producto",
+	"Price": "Precio",
+	"Type": "Tipo",
+	"Crear anuncio": "Crear anuncio",
+	"Submit": "Crear",
+	"Buy": "Buy",
+	"Sale": "Sale",
+	"Choose tags": "Choose tags"
 }

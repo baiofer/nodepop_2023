@@ -1,0 +1,48 @@
+<%- include('header') %>
+<!-- Section-->
+  <section class="page-section mb-0" > 
+    <div class="container my-section">
+        <h1><%= __('Crear anuncio') %></h1>
+        <form method='POST'>
+            <div class="form-floating mb-3">
+                <input type="text" name='name' class="form-control" id="floatingInput" placeholder= "name">
+                <label for="floatingInput"><%= __('Product name') %></label>
+            </div>
+            <div class="form-floating">
+                <input type="number" name='price' class="form-control" id="floatingPassword" placeholder="price">
+                <label for="floatingPassword"><%= __('Price') %></label>
+            </div>
+            <div class="form-floating mb-3 my-radio">
+                <fieldset >
+                    <legend><%= __('Type') %></legend>
+                    <div class="my-radio-input">
+                        <input type="radio" name='type' id="buy" value="buy" checked>
+                        <label for="buy" class="my-radio-label"><%= __('Buy') %></label>
+                    </div>
+                    <div class="my-radio-input">
+                        <input type="radio" name='type' id="sale" value="sale">
+                        <label for="sale" class="my-radio-label"><%= __('Sale') %></label>
+                    </div>
+                </fieldset>
+            </div>
+            <fieldset class="form-floating">
+                <label for="tags"><%= __('Tag') %></label>
+                <select id="tags" name="tags" class="my-select" multiple size=4>
+                    <% tagsSelected.forEach( tag => { %>
+                        <option class="my-option" value=<%= tag %>><%= tag %></option>
+                    <% }) %>
+                </select>
+            </fieldset>
+            <div class="form-floating my-div-file">
+                <label for="image" class="my-input-file"><%= __('Image') %></label>
+                <input type="file" name='image' class="form-control" id="image" placeholder="Image">
+                
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary"><%= __('Submit') %></button>
+        </form>
+    </div>
+    <br>
+    <br>
+</section>
+<%- include('footer') %>

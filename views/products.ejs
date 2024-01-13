@@ -3,10 +3,15 @@
   <section class="page-section mb-0" > 
     <div class="container my-section">
       <h1><%= __('LISTADO SELECCIONADO') %></h1>
-      <h3><%= __('User') %>: <%= email %></h3>
-      <a class="my-add" href="/">
-        <img src="/images/mas.png" alt="add">
-      </a>
+      <br>
+      <div class='my-user-div'>
+        <h3><%= __('User') %>: <%= email %></h3>
+        <a class="my-add" href="/newProduct">
+          <img src="/images/mas.png" alt="add" height="60px">
+        </a>
+      </div>
+      <br>
+      <br>
       <div class="my-grid">
       <% products.forEach( function(product) { %>
         <div class="card" style="width: 300px;">
@@ -37,4 +42,6 @@
       </div>
     </div>
   </section>
+  <br>
+  <br>
 <%- include('footer') %>
