@@ -1,4 +1,5 @@
 const { User } = require('../models')
+const jwt = require('jsonwebtoken')
 
 class LoginController {
 
@@ -35,6 +36,23 @@ class LoginController {
             }
             res.redirect('/')
         })
+    }
+
+    async postJWT(req, res, next) {
+        try {
+            const { email, password } = req.body
+            const user = await User.findOne({ email: email })
+            if (!user || !(await user.comparePassword(password))) {
+                res.json({ error: 'InvalidCredentials' })
+                return
+            }
+            const tokenJWT = await jwt.sign({ _id: user._id }, "adgjlqetu", {
+                expiresIn: '2d'
+            })
+            res.json({ jwt: tokenJWT })
+        } catch (error) {
+            next(error)
+        }
     }
 }
 

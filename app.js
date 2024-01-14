@@ -34,14 +34,17 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public/images')));
 
+// Global routes
+const loginController = new LoginController()
+
 // API routes
-app.use('/api/tags',     basiAuthMiddleware, require('./routes/api/tags'))
-app.use('/api/products', basiAuthMiddleware, require('./routes/api/products'))
+app.post('/api/login', loginController.postJWT)
+app.use('/api/tags',     require('./routes/api/tags'))
+app.use('/api/products', require('./routes/api/products'))
 
 // WEBsite routes
 const productsController = new ProductsController()
 const tagsController = new TagsController()
-const loginController = new LoginController()
 const changeLocaleController = new ChangeLocaleController()
 const productController = new ProductController()
 
@@ -65,9 +68,9 @@ app.use((req, res, next) => {
 // Redirection of language change
 app.get('/change-locale/:locale', changeLocaleController.index)
 // Public list of all products
-app.get('/', productsController.adverts)
+app.get('/',       productsController.adverts)
 // Login page
-app.get('/login', loginController.index)
+app.get('/login',  loginController.index)
 app.post('/login', loginController.post)
 app.get('/logout', loginController.logout)
 // Private routes
