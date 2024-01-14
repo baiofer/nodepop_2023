@@ -46,7 +46,7 @@ class LoginController {
                 res.json({ error: 'InvalidCredentials' })
                 return
             }
-            const tokenJWT = await jwt.sign({ _id: user._id }, "adgjlqetu", {
+            const tokenJWT = await jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
                 expiresIn: '2d'
             })
             res.json({ jwt: tokenJWT })

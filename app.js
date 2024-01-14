@@ -6,7 +6,8 @@ var logger = require('morgan');
 const session = require('express-session')
 const MongoStore = require('connect-mongo')
 const sessionAuthMiddleware = require('./lib/sessionAuthMiddleware')
-const basiAuthMiddleware = require('./lib/basicAuthMiddleware')
+//const basiAuthMiddleware = require('./lib/basicAuthMiddleware')
+const jwtAuthMiddleware = require('./lib/jwtAuthMiddleware')
 const TagsController = require('./controllers/TagsController')
 const ProductsController = require('./controllers/ProductsController')
 const LoginController = require('./controllers/LoginController');
@@ -39,8 +40,9 @@ const loginController = new LoginController()
 
 // API routes
 app.post('/api/login', loginController.postJWT)
-app.use('/api/tags',     require('./routes/api/tags'))
-app.use('/api/products', require('./routes/api/products'))
+app.use('/api/tags',     jwtAuthMiddleware, require('./routes/api/tags'))
+app.use('/api', require('./routes/api/products'))
+app.use('/api/products', jwtAuthMiddleware, require('./routes/api/products'))
 
 // WEBsite routes
 const productsController = new ProductsController()
@@ -90,6 +92,23 @@ app.use(function(req, res, next) {
 
 // Error handler
 app.use(function(err, req, res, next) {
+
+  if (err.array) {
+    const errorInfo = err.errors[0]
+    console.log(errorInfo)
+    err.message = `Error en ${errorInfo.location}, parámetro ${errorInfo.path} ${errorInfo.msg}`
+    err.status = 422
+  }
+  // Send error code
+  res.status(err.status || 500);
+
+  // If error in API request
+  // response of error in json format
+  if (req.originalUrl.startsWith('/api/')) {
+    res.json({ error: err.message })
+    return
+  }
+
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

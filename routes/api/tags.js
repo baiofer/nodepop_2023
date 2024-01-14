@@ -4,6 +4,7 @@ const getTags = require('../../lib/getTags')
 
 // GET Get tags
 router.get('/', async (req, res, next) => {
+    console.log('Tags')
     const tagsSelected = await getTags()
     res.json({ result: tagsSelected })
 })

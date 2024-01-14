@@ -16,7 +16,31 @@ GET | POST | DELETE | PUT
 
 ## Rutas de acceso (URLs)
 
-### Lista de productos
+### Login con la API
+
+**POST /api/login**
+
+En el body de la petición añadiremos
+
+**email**: Una cadena con el email del usuario.
+
+**password** : Una cadena con el password del usuario.
+
+La API devolverá un JWT token, que será necesario para realizar el resto de peticiones.
+
+Este JWt token se puede enviar en la cabecera
+
+**Authentication**
+
+en el body
+**jwt**
+
+o en la query string
+
+**ruta?jwt**
+
+
+### Lista de productos (Sin jwt token)
 
 **GET /api/products?filtro**
 
@@ -44,9 +68,37 @@ El filtro podrá ser:
 
 Se permite cualquier combinación de ellos y se encadenan con el caracter &
 
+### Lista de productos de un usuario (requiere JWT token)
+
+**GET /api/products?filtro**  **(requiere JWT token)**
+
+El filtro podrá ser:
+
+**id** = id del anuncio. Será numérico.
+
+**product** = nombre del producto. En mayúsculas o minúsculas. Se puede dar una parte del nombre para su búsqueda.
+
+**sale** = true/false. En mayúsculas o minúsculas. Si es un producto de venta (true) o si es de búsqueda (false)
+
+**price** = rango inferior-rango superior. Un rango de dos precios,separados por el crácter <->. Primero el precio mas bajo y segundo el mas alto. Si no se pone algún precio, el guión ha de ponerse.
+
+**image** = nombre del fichero de la foto. En mayúsculas o minúsculas.
+
+**tag** = tag. En mayusculas o minusculas
+
+**limit** = numero de registros a recibir. Será numérico.
+
+**skip** = cantidad de registros que salto. Será numérico.
+
+**sort** = nombre del campo por el que se ordena el listado.
+
+**fields** = campos deseados en el listado por cada producto. Irán separados por un espacio si se da mas de uno.
+
+Se permite cualquier combinación de ellos y se encadenan con el caracter &
+
 ### Crear un producto
 
-**POST /api/product**
+**POST /api/product**  **(requiere JWT token)**
 
 En el body de la petición añadiremos: 
 
@@ -74,7 +126,7 @@ id: Identificador del producto
 
 ### lista de tags
 
-**GET /api/tags**. Sin filtros
+**GET /api/tags**. Sin filtros  **(requiere JWT token)**
 
 Devuelve un listado con los diferentes tags definidos en todos los productos
 
