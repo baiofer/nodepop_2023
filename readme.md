@@ -184,6 +184,12 @@ A continuación, se crea la base de datos de arranque, teniendo previamente arra
 $ npm run initDB
 ```
 
+Lanzar el servicio de cambiar el tamaño de la imagen
+
+```sh
+$ npm run resizeImage-cote
+```
+
 Una vez instalada la base de datos de inicio se lanza la API
 
 ```sh

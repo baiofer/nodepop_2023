@@ -5,13 +5,15 @@
   "scripts": {
     "start": "node ./bin/www",
     "dev": "cross-env DEBUG=nodepop:* nodemon ./bin/www",
-    "initDB": "node ./initDB/initDB.js"
+    "initDB": "node ./initDB/initDB.js",
+    "resizeImage-cote": "node ./micro-services/resizeImageCoteMS.js"
   },
   "dependencies": {
     "basic-auth": "^2.0.1",
     "bcrypt": "^5.1.1",
     "connect-mongo": "^5.1.0",
     "cookie-parser": "~1.4.4",
+    "cote": "^1.0.3",
     "debug": "~2.6.9",
     "dotenv": "^16.3.1",
     "ejs": "^3.1.9",

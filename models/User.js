@@ -1,5 +1,11 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
+const jimp = require('jimp');
+const path = require('node:path')
+const { Requester } = require('cote')
+
+
+const requester = new Requester({ name: 'nodepop-api' })
 
 // User schema definition
 const userSchema = mongoose.Schema({

@@ -4,6 +4,7 @@ const queryFilter = require('../../lib/queryFilter')
 const Product = require('../../models/Product')
 const upload = require('../../lib/uploadConfigure')
 const resizeImage = require('../../lib/resizeImage')
+const resizeImageCote = require('../../lib/resizeImageCote')
 const deleteImage = require('../../lib/deleteImage')
 
 
@@ -41,7 +42,8 @@ router.post('/', upload.single('image'), async (req, res, next) => {
         product.image = req.file.filename         // Add image filename
 
         // Resize image
-        const imageResized = await resizeImage(req.file.filename)
+        //await resizeImage(req.file.filename)
+        await resizeImageCote(req.file.filename)
 
         product.owner = req.userLoggedApi         // Add owner of the Ad
         const savedProduct = await product.save()       // Persist product in DB
