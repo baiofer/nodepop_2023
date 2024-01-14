@@ -1,5 +1,7 @@
+var createError = require('http-errors');
 const Product = require ('../models/Product.js')
 const getTags = require('../lib/getTags')
+const deleteImage = require('../lib/deleteImage.js')
 
 class ProductController {
     async new (req, res, next) {
@@ -45,6 +47,7 @@ class ProductController {
                 return
             }
             await Product.deleteOne({ _id: productId })
+            deleteImage(product.image)
             res.redirect('/products')
         } catch (error) {
             next(error)
