@@ -18,9 +18,12 @@
 	"Product name": "Product name",
 	"Price": "Price",
 	"Type": "Type",
-	"Crear anuncio": "Create advertisement",
-	"Submit": "Submit",
+	"Crear anuncio": "Create advert",
+	"Submit": "Create",
 	"Buy": "Buy",
 	"Sale": "Sale",
-	"Choose tags": "Choose tags"
+	"Choose tags": "Choose tags",
+	"Adverts": "Adverts",
+	"My ads": "My ads",
+	"Delete": "Delete"
 }

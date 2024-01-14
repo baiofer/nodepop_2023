@@ -27,6 +27,29 @@ class ProductController {
             next(error)
         }
     }
+
+    async deleteProduct(req, res, next) {
+        try {
+            const userId = req.session.userLogged
+            const productId = req.params.productId
+            const product = await Product.findOne({ _id: productId })
+            if (!product) {
+                console.warn(`WARNING - el usuario ${userId} intentó eliminar un producto inexistente (${productId})`)
+                next(createError(404, 'Product not found'))
+                return
+            }
+            // agente.owner viene de la BD y es un ObjectId
+            if (product.owner.toString() !== userId) {
+                console.warn(`WARNING - el usuario ${userId} intentó eliminar un producto (${productId}) que no es de su propiedad. El propietario es ${product.owner}.`)
+                next(createError(401, 'Unauthorized'))
+                return
+            }
+            await Product.deleteOne({ _id: productId })
+            res.redirect('/products')
+        } catch (error) {
+            next(error)
+        }
+    }
 }
 
 module.exports = ProductController

@@ -35,6 +35,22 @@ class ProductsController {
             next(err)
         }
     }
+
+    async adverts(req, res, next) {
+        try {
+            // Get all products in DB
+            const { products, error } = await queryFilter(req)
+            if (Object.keys(error).length !== 0) {
+                next(error)
+                return
+            }
+            // Send all products
+            res.locals.products = products
+            res.render('index')
+        } catch (error) {
+            next(error)
+        }
+    }
 }
 
 module.exports = ProductsController

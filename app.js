@@ -38,7 +38,6 @@ app.use(express.static(path.join(__dirname, 'public/images')));
 app.use('/api/tags',     basiAuthMiddleware, require('./routes/api/tags'))
 app.use('/api/products', basiAuthMiddleware, require('./routes/api/products'))
 
-
 // WEBsite routes
 const productsController = new ProductsController()
 const tagsController = new TagsController()
@@ -62,21 +61,24 @@ app.use((req, res, next) => {
   res.locals.session = req.session
   next()
 })
+// Public routes
 // Redirection of language change
 app.get('/change-locale/:locale', changeLocaleController.index)
 // Public list of all products
-app.get('/', productsController.index)
-// Private list of user products
-app.get('/products', sessionAuthMiddleware, productsController.index)
-// Private list of tags
-app.get('/tags', sessionAuthMiddleware, tagsController.index)
+app.get('/', productsController.adverts)
 // Login page
 app.get('/login', loginController.index)
 app.post('/login', loginController.post)
 app.get('/logout', loginController.logout)
+// Private routes
+// Private list of user products
+app.get('/products', sessionAuthMiddleware, productsController.index)
+// Private list of tags
+app.get('/tags', sessionAuthMiddleware, tagsController.index)
 // New product
-app.get('/newProduct', productController.new)
-app.post('/newProduct', productController.postNewProduct)
+app.get('/newProduct', sessionAuthMiddleware, productController.new)
+app.post('/newProduct', sessionAuthMiddleware, productController.postNewProduct)
+app.get('/deleteProduct/:productId', sessionAuthMiddleware, productController.deleteProduct)
 
 // Catch 404 and forward to error handler
 app.use(function(req, res, next) {
