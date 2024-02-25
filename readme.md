@@ -208,4 +208,4 @@ $ ./bin/mongod --dbpath ./data/db
 
 ## Password del desarrollador
 
-Para acceder al API, que no a la página web, el usuario por defecto es **admin** y el password por defecto es **1234**.
+Para acceder al API, que no a la página web, el usuario por defecto es **email = admin@example.com** y el password por defecto es **password = 1234**.
